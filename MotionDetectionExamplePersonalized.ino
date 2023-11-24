@@ -7,10 +7,10 @@
 #include <WiFi.h>
 
 
-const char* ssid = "CASTILLA LARA_2_2G";
-const char* password =  "1020792779";
+const char* ssid = "QUEST";
+const char* password =  "BobCorinne21";
 
-String user = "ioticos";
+String user = "TEST";
 String pass = "12345";
 
 /**
@@ -111,37 +111,41 @@ void loop() {
 
     if (motion.detect()) {
         debug("INFO", String("Motion detected in ") + motion.getExecutionTimeInMicros() + " us");
+
+        if(WiFi.status()== WL_CONNECTED){   //Check WiFi connection status
+
         
-        HTTPClient http;
-        String datos_a_enviar = "nombre=" + http.URLEncode("José") + "&edad=" + http.URLEncode("25");
+          HTTPClient http;
+          String datos_a_enviar = "user=" + user + "&pass=" + pass;
 
-        http.begin("http://192.168.5.106:80/test");        //Indicamos el destino
-        http.addHeader("Content-Type", "application/x-www-form-urlencoded"); //Preparamos el header text/plain si solo vamos a enviar texto plano sin un paradigma llave:valor.
+          http.begin("http://192.168.1.168:80/test");        //Indicamos el destino
+          http.addHeader("Content-Type", "text/plain"); //Preparamos el header text/plain si solo vamos a enviar texto plano sin un paradigma llave:valor.
 
-        int codigo_respuesta = http.POST(datos_a_enviar);   //Enviamos el post pasándole, los datos que queremos enviar. (esta función nos devuelve un código que guardamos en un int)
+          //int codigo_respuesta = http.POST(datos_a_enviar);   //Enviamos el post pasándole, los datos que queremos enviar. (esta función nos devuelve un código que guardamos en un int)
+          int codigo_respuesta = http.POST("JUST ANOTHER TEST FROM ESP32");
 
-        if(codigo_respuesta>0){
+          if(codigo_respuesta>0){
           Serial.println("Código HTTP ► " + String(codigo_respuesta));   //Print return code
+            
+            if(codigo_respuesta == 200){
+              String cuerpo_respuesta = http.getString();
+              Serial.println("El servidor respondió ▼ ");
+              Serial.println(cuerpo_respuesta);
 
-          if(codigo_respuesta == 200){
-            String cuerpo_respuesta = http.getString();
-            Serial.println("El servidor respondió ▼ ");
-            Serial.println(cuerpo_respuesta);
+            }
+
+          }else{
+
+          Serial.print("Error enviando POST, código: ");
+          Serial.println(codigo_respuesta);
 
           }
 
-        }else{
-
-        Serial.print("Error enviando POST, código: ");
-        Serial.println(codigo_respuesta);
-
-        }
-
-        http.end();  //libero recursos
+          http.end();  //libero recursos
 
       }else{
 
-        Serial.println("Error en la conexión WIFI");
+          Serial.println("Error en la conexión WIFI");
 
       }
         delay(5000);
