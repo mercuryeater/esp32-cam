@@ -31,8 +31,8 @@ void setup() {
      * See CameraCaptureExample for more details
      */
   camera.aithinker();
-  camera._240x240();
-  camera.highQuality();
+  camera.qvga();
+  camera.bestQuality();
 
   /**
      * Configure motion detection
@@ -40,10 +40,10 @@ void setup() {
      * > setMinChanges() accepts a number from 0 to 1 (percent) or an integer
      *   At least the given number of pixels must change from one frame to the next
      *   to trigger the motion.
-     *   The following line translates to "Trigger motion if at least 10% of the pixels
+     *   The following line translates to "Trigger motion if at least 2% of the pixels
      *   in the image changed value"
      */
-  motion.setMinChanges(0.05);
+  motion.setMinChanges(0.02);
 
   /**
      * > setMinPixelDiff() accepts an integer
