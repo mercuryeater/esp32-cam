@@ -37,22 +37,22 @@ void setup() {
   /**
      * Configure motion detection
      *
-     * > setMinChanges() accepts a number from 0 to 1 (percent) or an integer
+     * > setMinChanges() accepts a number from 0 to 1 (percent) or an float
      *   At least the given number of pixels must change from one frame to the next
      *   to trigger the motion.
-     *   The following line translates to "Trigger motion if at least 2% of the pixels
+     *   The following line translates to "Trigger motion if at least 1% of the pixels
      *   in the image changed value"
      */
-  motion.setMinChanges(0.02);
+  motion.setMinChanges(0.00001);
 
   /**
      * > setMinPixelDiff() accepts an integer
      *   Each pixel value must differ at least of the given amount from one frame to the next
      *   to be considered as different.
      *   The following line translates to "Consider a pixel as changed if its value increased
-     *   or decreased by 10 (out of 255)"
+     *   or decreased by 1 (out of 255)"
      */
-  motion.setMinPixelDiff(5);
+  motion.setMinPixelDiff(0.001);
 
   /**
      * > setMinSizeDiff() accepts a number from 0 to 1 (percent) or an integer
@@ -61,11 +61,11 @@ void setup() {
      *   probably have the same contents". This is by no means guaranteed, but can dramatically
      *   reduce the computation cost.
      *   The following line translates to "Check for motion if the filesize of the current image
-     *   differs by more than 5% from the previous".
+     *   differs by more than 3% from the previous".
      *
      *   If you don't feel like this heuristic works for you, delete this line.
      */
-  //motion.setMinSizeDiff(0.05);
+  motion.setMinSizeDiff(0.01);
 
   /**
      * Initialize the camera
@@ -157,6 +157,7 @@ void loop() {
       }
 
       http.end();  //libero recursos
+      delay(1000);
 
     } else {
 
