@@ -31,31 +31,31 @@ void setup() {
      * See CameraCaptureExample for more details
      */
   camera.aithinker();
-  camera.qvga();
+  camera.hd();
   camera.bestQuality();
 
   /**
      * Configure motion detection
      *
-     * > setMinChanges() accepts a number from 0 to 1 (percent) or an float
+     * > setMinChanges() accepts a number from 0 to 1 (percent) or a float
      *   At least the given number of pixels must change from one frame to the next
      *   to trigger the motion.
      *   The following line translates to "Trigger motion if at least 1% of the pixels
      *   in the image changed value"
      */
-  motion.setMinChanges(0.00001);
+  motion.setMinChanges(0.000001);
 
   /**
-     * > setMinPixelDiff() accepts an integer
+     * > setMinPixelDiff() accepts a float
      *   Each pixel value must differ at least of the given amount from one frame to the next
      *   to be considered as different.
      *   The following line translates to "Consider a pixel as changed if its value increased
      *   or decreased by 1 (out of 255)"
      */
-  motion.setMinPixelDiff(0.001);
+  motion.setMinPixelDiff(0.01);
 
   /**
-     * > setMinSizeDiff() accepts a number from 0 to 1 (percent) or an integer
+     * > setMinSizeDiff() accepts a number from 0 to 1 (percent) or a float
      *   To speed up the detection, you can exit early if the image size is almost the same.
      *   This is an heuristic that says: "If two consecutive frames have a similar size, they
      *   probably have the same contents". This is by no means guaranteed, but can dramatically
@@ -65,7 +65,7 @@ void setup() {
      *
      *   If you don't feel like this heuristic works for you, delete this line.
      */
-  motion.setMinSizeDiff(0.01);
+  motion.setMinSizeDiff(0.02);
 
   /**
      * Initialize the camera
@@ -131,25 +131,6 @@ void loop() {
         Serial.print("Server answered: ");
         Serial.println(response);  //Print request answer
 
-
-        /*
-      // TEST 1 BELOW WORKING
-
-      http.addHeader("Content-Type", "text/plain");  //Preparamos el header text/plain si solo vamos a enviar texto plano sin un paradigma llave:valor.
-
-      //int httpResponseCode = http.POST(datos_a_enviar);   //Enviamos el post pasándole, los datos que queremos enviar. (esta función nos devuelve un código que guardamos en un int)
-      int httpResponseCode = http.POST("JUST ANOTHER TEST FROM ESP32");
-
-      if (httpResponseCode > 0) {
-        Serial.println("Código HTTP ► " + String(httpResponseCode));  //Print return code
-
-        if (httpResponseCode == 200) {
-          String cuerpo_respuesta = http.getString();
-          Serial.println("El servidor respondió ▼ ");
-          Serial.println(cuerpo_respuesta);
-        }
-        */
-
       } else {
 
         Serial.print("Error enviando POST, código: ");
@@ -157,7 +138,7 @@ void loop() {
       }
 
       http.end();  //libero recursos
-      delay(1000);
+      delay(100);
 
     } else {
 
