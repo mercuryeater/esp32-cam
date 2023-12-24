@@ -31,8 +31,9 @@ void setup() {
      * See CameraCaptureExample for more details
      */
   camera.aithinker();
-  camera.hd();
-  camera.bestQuality();
+  //camera.svga();
+  camera.xga();
+  camera.setQuality(25); //ranging from 10 (best) to 64 (lowest)
 
   /**
      * Configure motion detection
@@ -52,7 +53,7 @@ void setup() {
      *   The following line translates to "Consider a pixel as changed if its value increased
      *   or decreased by 1 (out of 255)"
      */
-  motion.setMinPixelDiff(0.01);
+  motion.setMinPixelDiff(0.03);
 
   /**
      * > setMinSizeDiff() accepts a number from 0 to 1 (percent) or a float
@@ -65,7 +66,7 @@ void setup() {
      *
      *   If you don't feel like this heuristic works for you, delete this line.
      */
-  motion.setMinSizeDiff(0.02);
+  motion.setMinSizeDiff(0.03);
 
   /**
      * Initialize the camera
@@ -144,7 +145,8 @@ void loop() {
 
       Serial.println("Error en la conexión WIFI");
     }
-    delay(5000);
+    // Testing without the delay below present in original preset
+    //delay(5000);
   } else if (!motion.isOk()) {
     /**
          * Something went wrong.
